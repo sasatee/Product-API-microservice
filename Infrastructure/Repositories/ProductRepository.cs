@@ -46,7 +46,7 @@ namespace Infrastructure.Repositories
 
         public async Task<Product?> GetProductByCondition(Expression<Func<Product, bool>> conditionExpression)
         {
-            return await _context.Products.FirstOrDefaultAsync(conditionExpression);
+            return await _context.Products.FirstOrDefaultAsync(conditionExpression); 
         }
 
         
