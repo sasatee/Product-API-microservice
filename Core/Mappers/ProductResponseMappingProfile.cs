@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Core.Mappers
 {
-    public class ProductMappingProfile :Profile
+    public class ProductResponseMappingProfile : Profile
     {
 
-        public ProductMappingProfile()
+        public ProductResponseMappingProfile()
         {
             CreateMap<Product, ProductResponse>()
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))

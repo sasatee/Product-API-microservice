@@ -20,7 +20,8 @@ builder.Services.AddCore();
 builder.Services.AddInfrastructure();
 
 //Add automapper profile from assembly
-builder.Services.AddAutoMapper(typeof(ProductMappingProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ProductResponseMappingProfile).Assembly);
+
 
 builder.Services.AddControllers();
 

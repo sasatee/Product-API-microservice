@@ -48,6 +48,19 @@ namespace Infrastructure.Repositories
             return await _context.Products.Where(p=>EF.Functions.Like(p.ProductName, $"%{filter}%")).ToListAsync();
         }
 
+        public async Task<Product?> GetProductById(Guid id)
+        {
+
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product is null)
+            {
+
+                return null;
+            }
+            return product;
+        }
+
         public async Task<IEnumerable<Product?>> GetProducts()
         {
             return await _context.Products.ToListAsync();

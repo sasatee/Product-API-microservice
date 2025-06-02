@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Core.DTOs
 {
-    public record ProductAddRequest(Guid id,
+    public record ProductAddRequest(Guid Id,
         string ProductName,
-        string category,
+        string Category,
         double? UnitPrice,
-        int? QuantityOfStock);
+        int? QuantityInStock);
 
           
 }

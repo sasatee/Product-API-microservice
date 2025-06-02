@@ -12,7 +12,8 @@ namespace Core.IRepository
 
         Task<IEnumerable<Product?>> GetProducts();
         Task<IEnumerable<Product?>> GetProductByCondition(string filter);
-
+         
+        Task<Product?> GetProductById(Guid id);
         Task<Product?> AddProduct(Product? product);
 
         Task<Product?> UpdateProduct(Guid Id ,Product? product); 

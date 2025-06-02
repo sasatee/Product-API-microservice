@@ -21,7 +21,26 @@ namespace Core.Services
            _productRepository = productRepository;
             _mapper = mapper;
         }
-        
+
+        public async Task<ProductResponse?> CreateProductAsync(ProductAddRequest? obj)
+        {
+            if (obj != null)
+            {
+                
+                Product productEntity = _mapper.Map<Product>(obj); // map request body/payload "ProductAddRequest" to entity "Product" ===> ProductAddRequestMappingProfile
+
+
+                Product? product = await _productRepository.AddProduct(productEntity);
+                if (product == null)
+                {
+                    return null;
+                }
+
+                return _mapper.Map<ProductResponse?>(product);
+            }
+
+            return null;
+        }
 
         public async Task<List<ProductResponse?>> GetAllProductsAsync()
         {
@@ -41,5 +60,14 @@ namespace Core.Services
 
 
         }
+
+        public async Task<ProductResponse?> GetProductbyIdAsync(Guid id)
+        {
+             Product? product = await _productRepository.GetProductById(id);
+            return _mapper.Map<ProductResponse?>(product);
+        }
+
+
+
     }
 }
