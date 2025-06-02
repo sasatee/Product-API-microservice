@@ -1,6 +1,7 @@
 using Core;
 using Core.Mappers;
 using Ecommerce.API.Middlewares;
+using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ builder.Services.AddAutoMapper(typeof(ProductResponseMappingProfile).Assembly);
 
 builder.Services.AddControllers();
 
+//FluentValidations
+builder.Services.AddFluentValidationAutoValidation();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();

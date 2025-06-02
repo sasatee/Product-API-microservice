@@ -8,7 +8,7 @@ namespace Core.DTOs
 {
     public record ProductUpdateRequest(Guid Id,
         string ProductName,
-        string Category,
+        CategoryOptions Category,
         double? UnitPrice,
         int? QuantityInStock)
     {

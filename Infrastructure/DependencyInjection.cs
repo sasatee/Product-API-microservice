@@ -4,6 +4,8 @@ using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using FluentValidation;
+using Core.Validators;
 
 
 namespace Infrastructure
@@ -19,6 +21,8 @@ namespace Infrastructure
             {
                 options.UseSqlServer(configuration.GetConnectionString("SQLServerConnection"));
             });
+
+            services.AddValidatorsFromAssemblyContaining<ProductAddRequestValidator>();
 
             return services;
         }
