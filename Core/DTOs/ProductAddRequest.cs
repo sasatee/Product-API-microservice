@@ -10,7 +10,13 @@ namespace Core.DTOs
         string ProductName,
         string Category,
         double? UnitPrice,
-        int? QuantityInStock);
+        int? QuantityInStock)
+    {
+        public ProductAddRequest() : this(default,default,default,default,default)
+        {
+            
+        }
+    }
 
           
 }

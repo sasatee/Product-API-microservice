@@ -12,7 +12,7 @@ namespace Core
         public static IServiceCollection AddCore(this IServiceCollection services)
         {
 
-
+            
             services.AddTransient<IProductService, ProductService>();
             return services;
         

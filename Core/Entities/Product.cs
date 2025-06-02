@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace Core.Entities
 {
     public class Product
     {
-
-        public Guid Id { get; set; }
+        [Key]
+        public Guid ProductId { get; set; }
 
         public string ProductName { get; set; } = string.Empty;
 
@@ -19,6 +20,9 @@ namespace Core.Entities
 
         public int? QuantityInStock { get; set; }
 
-        
+        public static explicit operator List<object>(Product? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

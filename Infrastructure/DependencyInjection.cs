@@ -1,4 +1,4 @@
-﻿using Core.IRepository;
+﻿using Core.RepositoryContracts;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,16 +10,17 @@ namespace Infrastructure
 {
     public static class DependencyInjection
     {
-
-
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-
             services.AddScoped<IProductRepository, ProductRepository>();
-      
+
+            //Add sql server
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("SQLServerConnection"));
+            });
 
             return services;
-        
         }
     }
 }

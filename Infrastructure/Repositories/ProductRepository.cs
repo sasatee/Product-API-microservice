@@ -1,10 +1,11 @@
 ﻿using Core.Entities;
-using Core.IRepository;
+using Core.RepositoryContracts;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,27 +44,23 @@ namespace Infrastructure.Repositories
            
         }
 
-        public async Task<IEnumerable<Product?>> GetProductByCondition(string filter)
+        public async Task<Product?> GetProductByCondition(Expression<Func<Product, bool>> conditionExpression)
         {
-            return await _context.Products.Where(p=>EF.Functions.Like(p.ProductName, $"%{filter}%")).ToListAsync();
+            return await _context.Products.FirstOrDefaultAsync(conditionExpression);
         }
 
-        public async Task<Product?> GetProductById(Guid id)
-        {
+        
 
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
 
-            if (product is null)
-            {
-
-                return null;
-            }
-            return product;
-        }
 
         public async Task<IEnumerable<Product?>> GetProducts()
         {
             return await _context.Products.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Product?>> GetProductsByCondition(Expression<Func<Product, bool>> conditionExpression)
+        {
+            return await _context.Products.Where(conditionExpression).ToListAsync();
         }
 
         public async Task<Product?> UpdateProduct(Guid Id, Product? product)

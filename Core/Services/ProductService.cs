@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.DTOs;
 using Core.Entities;
-using Core.IRepository;
+using Core.RepositoryContracts;
 using Core.ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ namespace Core.Services
 
         public async Task<List<ProductResponse?>> GetProductByConditionAsync(string filter)
         {
-            List<Product?> product = (List<Product?>) await _productRepository.GetProductByCondition(filter);
+            List<Product?> product = (List<Product?>)await _productRepository.GetProductsByCondition(p => p.ProductName.StartsWith(filter.ToLowerInvariant()));
 
 
             return _mapper.Map<List<ProductResponse?>>(product);
@@ -45,7 +45,7 @@ namespace Core.Services
 
         public async Task<ProductResponse?> GetProductbyIdAsync(Guid id)
         {
-             Product? product = await _productRepository.GetProductById(id);
+             Product? product = (Product?)await _productRepository.GetProductByCondition(p=>p.ProductId == id);
             return _mapper.Map<ProductResponse?>(product);
         }
 
