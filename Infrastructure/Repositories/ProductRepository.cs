@@ -65,9 +65,9 @@ namespace Infrastructure.Repositories
 
         public async Task<Product?> UpdateProduct(Guid Id, Product? product)
         {
-            Product? existing = await _context.Products.FindAsync(Id);
-            if(existing == null) return null;
-            if (existing != null && product != null) 
+            Product? existing = await _context.Products.FirstOrDefaultAsync(temp => temp.ProductId == product.ProductId;
+            if(existing is null) return null;
+            if (existing is not null && product is not null) 
             {
 
 
@@ -77,7 +77,7 @@ namespace Infrastructure.Repositories
                 existing.QuantityInStock = product.QuantityInStock;
 
 
-                _context.Products.Update(existing);
+                
             }
            
             await _context.SaveChangesAsync();
