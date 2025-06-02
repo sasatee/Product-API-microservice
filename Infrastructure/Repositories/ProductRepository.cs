@@ -77,7 +77,7 @@ namespace Infrastructure.Repositories
                 existing.QuantityInStock = product.QuantityInStock;
 
 
-                
+                 _context.Update(existing);
             }
            
             await _context.SaveChangesAsync();
