@@ -22,25 +22,7 @@ namespace Core.Services
             _mapper = mapper;
         }
 
-        public async Task<ProductResponse?> CreateProductAsync(ProductAddRequest? obj)
-        {
-            if (obj != null)
-            {
-                
-                Product productEntity = _mapper.Map<Product>(obj); // map request body/payload "ProductAddRequest" to entity "Product" ===> ProductAddRequestMappingProfile
-
-
-                Product? product = await _productRepository.AddProduct(productEntity);
-                if (product == null)
-                {
-                    return null;
-                }
-
-                return _mapper.Map<ProductResponse?>(product);
-            }
-
-            return null;
-        }
+       
 
         public async Task<List<ProductResponse?>> GetAllProductsAsync()
         {
@@ -67,7 +49,37 @@ namespace Core.Services
             return _mapper.Map<ProductResponse?>(product);
         }
 
+        public async Task<ProductResponse?> CreateProductAsync(ProductAddRequest? obj)
+        {
+               
+          
+
+                Product productEntity = _mapper.Map<Product>(obj); // map request body/payload "ProductAddRequest" to entity "Product" ===> ProductAddRequestMappingProfile
 
 
+                Product? product = await _productRepository.AddProduct(productEntity);
+                if (product is null) return null;
+                
+
+                return _mapper.Map<ProductResponse?>(product);
+            
+
+           
+        }
+
+        public async Task UpdateProductAsync(Guid id, ProductUpdateRequest? obj)
+        {
+            
+
+        
+            Product productEntity = _mapper.Map<Product>(obj);// map request body/payload "ProductUpdateRequest" to entity "Product" ===> ProductUpdateRequestMappingProfile
+
+            await _productRepository.UpdateProduct(id, productEntity);
+        }
+
+        public async Task DeleteProductAsync(Guid Id)
+        {
+            await _productRepository.DeleteProduct(Id);
+        }
     }
 }

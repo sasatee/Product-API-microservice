@@ -13,5 +13,9 @@ namespace Core.ServiceContracts
         Task<ProductResponse?> GetProductbyIdAsync(Guid id);
 
         Task<ProductResponse?> CreateProductAsync(ProductAddRequest? obj);
+
+        Task UpdateProductAsync(Guid Id ,ProductUpdateRequest? obj);
+
+        Task DeleteProductAsync(Guid Id);
     }
 }

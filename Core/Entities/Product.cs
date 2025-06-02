@@ -18,8 +18,7 @@ namespace Core.Entities
         public double? UnitPrice { get; set; }
 
         public int? QuantityInStock { get; set; }
+
         
-
-
     }
 }

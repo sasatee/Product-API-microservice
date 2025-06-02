@@ -16,6 +16,20 @@ namespace Product.API.Controllers
         {
             _productService = productService;
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct([FromBody] ProductAddRequest productAddRequest)
+        {
+            if (productAddRequest == null)
+            {
+
+                return BadRequest();
+            }
+            else
+            {
+                var result =  await _productService.CreateProductAsync(productAddRequest);
+                return CreatedAtAction(nameof(CreateProduct), new { result?.Id }, productAddRequest);
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProduct()
@@ -23,33 +37,38 @@ namespace Product.API.Controllers
             return Ok(await _productService.GetAllProductsAsync());
         }
 
-        [HttpGet]
-        [Route("filter/{filter}")] 
-        public async Task<IActionResult> GetProductByCondition(string filter)
+        [HttpGet("Filter")]
+       
+        public async Task<IActionResult> GetProductByCondition([FromQuery] string productName)
         {
-            return Ok(await _productService.GetProductByConditionAsync(filter));
+            return Ok(await _productService.GetProductByConditionAsync(productName));
         }
 
-        [HttpGet]
-        [Route("{id}")] 
+        [HttpGet("{id}")]
+    
         public async Task<IActionResult> GetProductById(Guid id)
         {
             return Ok(await _productService.GetProductbyIdAsync(id));
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] ProductAddRequest productAddRequest)
-        {
-            if (productAddRequest == null) 
-            {
+        [HttpPut("{id}")]
 
-                return BadRequest();
-            }
-            else
-            {
-                await _productService.CreateProductAsync(productAddRequest);
-                return CreatedAtAction(nameof(CreateProduct), new {productAddRequest.Id},productAddRequest);
-            }
+        public async Task<IActionResult> UpdateProductById(Guid id, ProductUpdateRequest? obj)
+        {
+            if (obj == null) return BadRequest();
+            await _productService.UpdateProductAsync(id, obj);
+            return NoContent();
         }
+
+
+        [HttpDelete("{id}")]
+
+        public async Task<IActionResult> DeleteProductById(Guid id)
+        {
+           
+             await _productService.DeleteProductAsync(id);
+            return NoContent();
+        }
+      
     }
 }
