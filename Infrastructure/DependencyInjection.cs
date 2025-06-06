@@ -16,10 +16,15 @@ namespace Infrastructure
         {
             services.AddScoped<IProductRepository, ProductRepository>();
 
+            string connectionStringTemplate =
+                configuration.GetConnectionString("SQLServerConnection1")!;
+
+           string connectionString = connectionStringTemplate.Replace("$MSSQL_HOST", Environment.GetEnvironmentVariable("MSSQL_HOST"))
+                .Replace("$MSSQL_PASSWORD", Environment.GetEnvironmentVariable("MSSQL_PASSWORD"));
             //Add sql server
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("SQLServerConnection"));
+                options.UseSqlServer(configuration.GetConnectionString(connectionString));
             });
 
             services.AddValidatorsFromAssemblyContaining<ProductAddRequestValidator>();

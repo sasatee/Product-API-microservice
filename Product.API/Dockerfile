@@ -27,4 +27,6 @@ RUN dotnet publish "./Product.API.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV MSSQL_HOST=sqlhost-microservice
+ENV MSSQL_PASSWORD=Qwerty@1
 ENTRYPOINT ["dotnet", "Product.API.dll"]
